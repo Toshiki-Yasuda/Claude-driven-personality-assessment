@@ -13,32 +13,56 @@ permissions:
   id-token: write
 
 concurrency:
-  group: "pages"
-  cancel-in-progress: true
+  group: pages
+  cancel-in-progress: false
 
 jobs:
   build:
+    name: Build
     runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
 
-      - name: Configure Pages
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Pages
         uses: actions/configure-pages@v4
 
+      - name: Verify files exist
+        run: |
+          echo "=== Repository Structure ==="
+          ls -la
+          echo ""
+          echo "=== HTML Files ==="
+          find . -name "*.html" -type f
+          echo ""
+          echo "=== Checking yasuda_toshiki_uiux.html ==="
+          if [ -f "yasuda_toshiki_uiux.html" ]; then
+            echo "✓ yasuda_toshiki_uiux.html found"
+            wc -l yasuda_toshiki_uiux.html
+          else
+            echo "✗ yasuda_toshiki_uiux.html NOT found"
+            exit 1
+          fi
+
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v2
         with:
-          path: '.'
-          if-no-files-found: error
+          path: ${{ github.workspace }}
+          retention-days: 1
 
   deploy:
+    name: Deploy
     needs: build
+    runs-on: ubuntu-latest
+
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
+
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v2
