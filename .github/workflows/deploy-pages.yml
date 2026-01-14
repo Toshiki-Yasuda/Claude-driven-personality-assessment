@@ -27,15 +27,18 @@ jobs:
         run: |
           if [ -f "yasuda_toshiki_uiux.html" ]; then
             echo "✓ yasuda_toshiki_uiux.html found"
+            ls -lh yasuda_toshiki_uiux.html
+            echo "File count in workspace:"
+            find . -maxdepth 1 -type f | head -20
           else
             echo "✗ yasuda_toshiki_uiux.html NOT found"
             exit 1
           fi
 
       - name: Upload Pages artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v2
         with:
-          path: ${{ github.workspace }}
+          path: .
 
       - name: Deploy to Pages
         id: deployment
