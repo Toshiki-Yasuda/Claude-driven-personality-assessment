@@ -1,0 +1,25 @@
+# GitHub Pages Configuration
+
+# Site settings
+title: 安田季記 - Character Analysis by Claude
+description: AI-generated comprehensive personality assessment and analysis report
+theme: null
+markdown: kramdown
+
+# Build settings
+exclude:
+  - .github
+  - .git
+  - .gitignore
+  - README.md
+
+# Permalink structure
+permalink: none
+
+# Markdown processing
+kramdown:
+  parse_block_html: true
+
+# Include dotfiles
+include:
+  - .github
