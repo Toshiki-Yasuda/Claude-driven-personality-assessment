@@ -1,25 +1,25 @@
 # GitHub Pages Configuration
+# Use raw HTML without Jekyll processing
 
-# Site settings
-title: 安田季記 - Character Analysis by Claude
-description: AI-generated comprehensive personality assessment and analysis report
-theme: null
+# Disable Jekyll processing
 markdown: kramdown
-
-# Build settings
 exclude:
   - .github
   - .git
   - .gitignore
-  - README.md
+  - Gemfile
+  - Gemfile.lock
 
-# Permalink structure
-permalink: none
-
-# Markdown processing
-kramdown:
-  parse_block_html: true
-
-# Include dotfiles
+# Enable all files to be published
 include:
-  - .github
+  - .nojekyll
+
+# Site metadata
+title: 安田季記 - Character Analysis by Claude
+description: AI-generated comprehensive personality assessment and analysis report
+
+# Build settings
+safe: true
+incremental: true
+lsi: false
+gist: false
