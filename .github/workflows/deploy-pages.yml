@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - main
-      - claude/check-status-c7g27
+      - claude/fix-build-failure-SVYiu
   workflow_dispatch:
 
 permissions:
